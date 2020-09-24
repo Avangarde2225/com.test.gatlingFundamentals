@@ -11,7 +11,8 @@ class Blazecom extends Simulation {
 		.baseUrl("https://www.demoblaze.com")
 		.inferHtmlResources()
 		.userAgentHeader("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36")
-
+		.silentResources
+	
 	val headers_0 = Map(
 		"accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
 		"accept-encoding" -> "gzip, deflate, br",
@@ -176,17 +177,19 @@ class Blazecom extends Simulation {
             http("request_14")
 			.options(uri2 + "/view")
 			.headers(headers_14),
-            http("request_15")
+            http("Click on Samsung Phone")
 			.post(uri2 + "/view")
 			.headers(headers_15)
+              .notSilent
 			.body(RawFileBody("/blazecom/0015_request.json")),
             http("request_16")
 			.get("/imgs/galaxy_s6.jpg")
 			.headers(headers_1)))
 		.pause(13)
-		.exec(http("request_17")
+		.exec(http("Add to Cart")
 			.options(uri2 + "/addtocart")
 			.headers(headers_14)
+      .notSilent
 			.resources(http("request_18")
 			.post(uri2 + "/addtocart")
 			.headers(headers_15)
@@ -243,8 +246,9 @@ class Blazecom extends Simulation {
             http("request_35")
 			.get("/config.json")
 			.headers(headers_10),
-            http("request_36")
+            http("Go to the Cart")
 			.options(uri2 + "/viewcart")
+              .notSilent
 			.headers(headers_14),
             http("request_37")
 			.get(uri1 + "/index.m3u8")
